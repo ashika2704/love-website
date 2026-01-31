@@ -6,7 +6,7 @@ import loveMsgImg from '../../assets/loveMsg.jpeg';
 import flowerImg from '../../assets/Flower.jpeg';
 import video1 from '../../assets/video1.mp4';
 import letter1 from '../../assets/letter1.jpeg';
-import letter2 from '../../assets/letter2.jpeg';
+import letter2 from '../../assets/Letter2.jpeg';
 import letter3 from '../../assets/Letter-3.jpeg';
 import letterDash1 from '../../assets/Letter-1.jpeg';
 import letterDash2 from '../../assets/Letter-2.jpeg';
