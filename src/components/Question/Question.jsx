@@ -10,6 +10,7 @@ import gif6 from '../../assets/gif6.gif';
 const Question = ({ onNext }) => {
     const [accepted, setAccepted] = useState(false);
     const [noMessage, setNoMessage] = useState("");
+    const timerRef = React.useRef(null); // Ref to store timeout ID
 
     // Manage base GIF to allow switching
     const [currentBaseGif, setCurrentBaseGif] = useState(gif3);
@@ -36,6 +37,15 @@ const Question = ({ onNext }) => {
         return () => clearInterval(interval);
     }, [currentBaseGif]);
 
+    // Cleanup navigation timer on unmount
+    React.useEffect(() => {
+        return () => {
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
+            }
+        };
+    }, []);
+
     const handleNoInteraction = () => {
         setNoMessage("Think again! 😜");
         setCurrentBaseGif(gif1);
@@ -59,7 +69,7 @@ const Question = ({ onNext }) => {
         }, 250);
 
         // Navigate to timer after 10s
-        setTimeout(() => {
+        timerRef.current = setTimeout(() => {
             onNext();
         }, 10000);
     };
