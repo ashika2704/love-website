@@ -75,7 +75,7 @@ const Quiz = ({ onBack }) => {
         if (step === 6 && correctCount >= 4) {
             const timer = setTimeout(() => {
                 setStep(7);
-            }, 10000);
+            }, 5000);
             return () => clearTimeout(timer);
         }
     }, [step, correctCount]);
@@ -354,6 +354,15 @@ const Quiz = ({ onBack }) => {
                                 ))}
                             </div>
                         )}
+
+                        {correctCount >= 4 && (
+                            <button
+                                onClick={() => setStep(7)}
+                                className="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold py-4 rounded-2xl shadow-lg mt-4 animate-pulse hover:animate-none transition-all"
+                            >
+                                See Surprise ✨
+                            </button>
+                        )}
                     </motion.div>
                 )}
 
@@ -372,7 +381,7 @@ const Quiz = ({ onBack }) => {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.5 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="overflow-hidden rounded-2xl shadow-lg border-4 border-white w-40 h-40 md:w-56 md:h-56 mx-auto mt-5 flex-shrink-0 " 
+                            className="overflow-hidden rounded-2xl shadow-lg border-4 border-white w-40 h-40 md:w-56 md:h-56 mx-auto mt-5 flex-shrink-0 "
                         >
                             <img
                                 src={handImg}
