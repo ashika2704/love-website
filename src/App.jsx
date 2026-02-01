@@ -10,10 +10,13 @@ import EveryPartOfUs from './components/EveryPartOfUs/EveryPartOfUs';
 import LoveSection from './components/LoveSection/LoveSection';
 import MemoriesSection from './components/LoveSection/MemoriesSection';
 import FightsConvincingSection from './components/LoveSection/FightsConvincingSection';
+import ChoiceSelection from './components/ChoiceSelection/ChoiceSelection';
+import Redirecting from './components/Redirecting/Redirecting';
 import Quiz from './components/Quiz/Quiz';
+import ProposalTimer from './components/ProposalTimer/ProposalTimer';
 
 function App() {
-  const [page, setPage] = useState(0); // 0: Landing, 1: Proposal, 2: Story, 3: Every Part, 4+: Sections, 10: Main Content
+  const [page, setPage] = useState(0); // 0: Landing, 1: Proposal, 1.1: Timer, 1.5: Choice Hub, 1.6: Redirecting, 2: Story, 3: Every Part, 4+: Sections, 10: Main Content
   const [selectedSection, setSelectedSection] = useState(null);
 
   if (page === 0) {
@@ -21,18 +24,43 @@ function App() {
   }
 
   if (page === 1) {
-    return <Question onNext={() => setPage(2)} />;
+    return <Question onNext={() => setPage(1.1)} />;
+  }
+
+  if (page === 1.1) {
+    return <ProposalTimer onNext={() => setPage(1.5)} />;
+  }
+
+  if (page === 1.5) {
+    return <ChoiceSelection onSelect={(choice) => {
+      if (choice === 'story') {
+        setPage(1.6);
+        setTimeout(() => setPage(2), 4000);
+      } else if (choice === 'quiz') {
+        setSelectedSection('quiz');
+        setPage(4);
+      } else if (choice === 'everypart') {
+        setPage(3);
+      }
+    }} />;
+  }
+
+  if (page === 1.6) {
+    return <Redirecting />;
   }
 
   if (page === 2) {
-    return <LoveStory onComplete={() => setPage(3)} />;
+    return <LoveStory onComplete={() => setPage(1.5)} />;
   }
 
   if (page === 3) {
-    return <EveryPartOfUs onSectionSelect={(section) => {
-      setSelectedSection(section);
-      setPage(4);
-    }} />;
+    return <EveryPartOfUs
+      onSectionSelect={(section) => {
+        setSelectedSection(section);
+        setPage(4);
+      }}
+      onBack={() => setPage(1.5)}
+    />;
   }
 
   if (page === 4 && selectedSection) {
@@ -61,7 +89,7 @@ function App() {
     if (selectedSection === 'quiz') {
       return <Quiz
         onBack={() => {
-          setPage(3);
+          setPage(1.5);
           setSelectedSection(null);
         }}
       />;

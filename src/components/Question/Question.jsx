@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
-import { Heart } from 'lucide-react';
+import { Heart, ArrowRight } from 'lucide-react';
 import gif3 from '../../assets/gif3.gif';
 import gif7 from '../../assets/gif7.gif';
 import gif1 from '../../assets/gif1.gif';
@@ -41,8 +41,6 @@ const Question = ({ onNext }) => {
         setCurrentBaseGif(gif1);
     };
 
-    const [isRedirecting, setIsRedirecting] = useState(false);
-
     const handleYes = () => {
         setAccepted(true);
 
@@ -60,15 +58,10 @@ const Question = ({ onNext }) => {
             confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
         }, 250);
 
-        // Switch to Redirecting state after 15s
+        // Navigate to timer after 10s
         setTimeout(() => {
-            setIsRedirecting(true);
-
-            // Navigate to main content after another 4s
-            setTimeout(() => {
-                onNext();
-            }, 15000);
-        }, 15000);
+            onNext();
+        }, 10000);
     };
 
     return (
@@ -131,7 +124,7 @@ const Question = ({ onNext }) => {
                         {noMessage}
                     </motion.p>
                 </motion.div>
-            ) : !isRedirecting ? (
+            ) : (
                 <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -148,23 +141,19 @@ const Question = ({ onNext }) => {
                         Yay! ❤️
                     </h2>
                     <p className="text-2xl font-serif text-gray-700 mb-8">
-                        I knew you'd say yes! I love you!
+                        I love you!!!
                     </p>
-                </motion.div>
-            ) : (
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="z-10 flex flex-col items-center"
-                >
-                    <motion.img
-                        src={gif6}
-                        alt="Redirecting"
-                        className="rounded-2xl shadow-xl border-2 border-white/50 mb-6 w-48 md:w-64"
-                    />
-                    <p className="text-lg font-serif text-[#d90429] italic mt-5">
-                        Redirecting to our love story...
-                    </p>
+
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={onNext}
+                        className="flex items-center gap-2 bg-white text-[#d90429] px-6 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all p-3"
+                        style={{ borderRadius: '15px' }}
+                    >
+                        Next
+                        <ArrowRight className="w-5 h-5" />
+                    </motion.button>
                 </motion.div>
             )}
         </section>

@@ -14,6 +14,8 @@ import nameImg from '../../assets/name.jpeg';
 import ringImg from '../../assets/ring.jpeg';
 import video2 from '../../assets/video2.mp4';
 import video4 from '../../assets/video4.mp4';
+import storyVideo from '../../assets/Story.mp4';
+import storyVideo1 from '../../assets/Story1.mp4';
 
 const GalleryItem = ({ item, index, onClick }) => {
     const [carouselIndex, setCarouselIndex] = useState(0);
@@ -76,15 +78,15 @@ const GalleryItem = ({ item, index, onClick }) => {
                     <>
                         <button
                             onClick={handlePrev}
-                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity z-30"
+                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-transparent text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity z-30"
                         >
-                            <ArrowLeft className="w-4 h-4" />
+                            <ArrowLeft className="w-5 h-5 shadow-sm" />
                         </button>
                         <button
                             onClick={handleNext}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity z-30"
+                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-transparent text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity z-30"
                         >
-                            <ArrowLeft className="w-4 h-4 rotate-180" />
+                            <ArrowLeft className="w-5 h-5 rotate-180 shadow-sm" />
                         </button>
                         {/* Dots */}
                         <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-1 z-30">
@@ -149,13 +151,15 @@ const LoveSection = ({ onBack, onContinue }) => {
         { id: 1, type: 'image', src: msgImg, caption: 'Our first moment' },
         { id: 2, type: 'image', src: loveMsgImg, caption: 'The proposal' },
         { id: 3, type: 'image', src: flowerImg, caption: 'A special memory' },
-        { id: 4, type: 'carousel', src: [letter2, letter1], caption: 'Love Letters' },
+        { id: 4, type: 'carousel', src: [letter2, letter1], caption: 'Love Letter' },
         // { id: 5, type: 'image', src: msgImg, caption: 'Love in the air' },
         { id: 6, type: 'carousel', src: [letterDash1, letterDash2, letter3], caption: 'Letter' },
         { id: 7, type: 'image', src: nameImg, caption: 'Forever & Always' },
-        { id: 8, type: 'image', src: ringImg, caption: 'The Promise' },
-        { id: 10, type: 'video', src: video2, caption: 'Moments Together 2' },
-        { id: 11, type: 'video', src: video4, caption: 'Moments Together 3' },
+        { id: 8, type: 'image', src: ringImg, caption: 'Ring' },
+        { id: 10, type: 'video', src: video2, caption: 'Video 1' },
+        { id: 11, type: 'video', src: video4, caption: 'Video 2' },
+        { id: 12, type: 'video', src: storyVideo, caption: 'Our Story' },
+        { id: 13, type: 'video', src: storyVideo1, caption: 'Our Story' },
         { id: 9, type: 'video', src: video1, caption: 'Our video' },
     ];
 
@@ -169,15 +173,15 @@ const LoveSection = ({ onBack, onContinue }) => {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-center mb-12"
                 >
-                    <div className="inline-block p-4 bg-gradient-to-r from-pink-400 to-red-400 rounded-full mb-2 mt-2">
+                    {/* <div className="inline-block p-4 bg-gradient-to-r from-pink-400 to-red-400 rounded-full mb-2 mt-2">
                         <Heart className="w-12 h-12 text-white" fill="white" />
-                    </div>
+                    </div> */}
 
-                    <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-2" style={{ fontFamily: 'var(--font-heading)' }}>
+                    <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-2 mt-3" style={{ fontFamily: 'var(--font-body)' }}>
                         Love 💕
                     </h1>
 
-                    <p className="text-lg md:text-xl text-gray-700 italic max-w-3xl mx-auto leading-relaxed" style={{ fontFamily: 'var(--font-serif)' }}>
+                    <p className="text-sm md:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed italic" style={{ fontFamily: 'var(--font-body)' }}>
                         This is where our story turned into love in moments of magic, hugs, promises, and forever feelings.
                     </p>
                 </motion.div>
@@ -267,9 +271,9 @@ const LoveSection = ({ onBack, onContinue }) => {
                                                     currentSrcIndex: ((prev.currentSrcIndex || 0) - 1 + prev.src.length) % prev.src.length
                                                 }));
                                             }}
-                                            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full backdrop-blur-sm transition-all"
+                                            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-transparent text-white p-3 rounded-full transition-all"
                                         >
-                                            <ArrowLeft className="w-6 h-6" />
+                                            <ArrowLeft className="w-8 h-8 drop-shadow-lg" />
                                         </button>
                                         <button
                                             onClick={(e) => {
@@ -279,9 +283,9 @@ const LoveSection = ({ onBack, onContinue }) => {
                                                     currentSrcIndex: ((prev.currentSrcIndex || 0) + 1) % prev.src.length
                                                 }));
                                             }}
-                                            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full backdrop-blur-sm transition-all"
+                                            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-transparent text-white p-3 rounded-full transition-all"
                                         >
-                                            <ArrowLeft className="w-6 h-6 rotate-180" />
+                                            <ArrowLeft className="w-8 h-8 rotate-180 drop-shadow-lg" />
                                         </button>
 
                                         {/* Pagination Dots */}

@@ -7,14 +7,18 @@ const FloatingHearts = () => {
 
   useEffect(() => {
     const generateHearts = () => {
-      const newHearts = Array.from({ length: 20 }).map((_, i) => ({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100 + 100, // Start below screen
-        size: Math.random() * 20 + 10,
-        duration: Math.random() * 10 + 10,
-        delay: Math.random() * 10,
-      }));
+      const newHearts = Array.from({ length: 20 }).map((_, i) => {
+        const rotationRange = Math.random() > 0.5 ? [0, 90] : [270, 230];
+        return {
+          id: i,
+          x: Math.random() * 100,
+          y: Math.random() * 100 + 100, // Start below screen
+          size: Math.random() * 20 + 10,
+          duration: Math.random() * 10 + 10,
+          delay: Math.random() * 10,
+          rotationRange
+        };
+      });
       setHearts(newHearts);
     };
 
@@ -30,7 +34,7 @@ const FloatingHearts = () => {
           animate={{
             y: '-10vh',
             opacity: [0, 1, 0],
-            rotate: [0, 180],
+            rotate: heart.rotationRange,
           }}
           transition={{
             duration: heart.duration,

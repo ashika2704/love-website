@@ -103,15 +103,15 @@ const GalleryItem = ({ item, index, onClick }) => {
                     <>
                         <button
                             onClick={handlePrev}
-                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity z-30"
+                            className="absolute left-2 top-1/2 -translate-y-1/2 bg-transparent text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity z-30"
                         >
-                            <ArrowLeft className="w-4 h-4" />
+                            <ArrowLeft className="w-5 h-5 shadow-sm" />
                         </button>
                         <button
                             onClick={handleNext}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity z-30"
+                            className="absolute right-2 top-1/2 -translate-y-1/2 bg-transparent text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity z-30"
                         >
-                            <ArrowLeft className="w-4 h-4 rotate-180" />
+                            <ArrowLeft className="w-5 h-5 rotate-180 shadow-sm" />
                         </button>
                         <div className="absolute bottom-8 left-0 right-0 flex justify-center gap-1 z-30">
                             {item.src.map((_, idx) => (
@@ -164,15 +164,15 @@ const MemoriesSection = ({ onBack, onContinue }) => {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-center mb-12"
                 >
-                    <div className="inline-block p-4 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full mb-2 mt-2">
+                    {/* <div className="inline-block p-4 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full mb-2 mt-2">
                         <Camera className="w-12 h-12 text-white" />
-                    </div>
+                    </div> */}
 
-                    <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-2" style={{ fontFamily: 'var(--font-heading)' }}>
+                    <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-2 mt-3" style={{ fontFamily: 'var(--font-body)' }}>
                         Memories 📸
                     </h1>
 
-                    <p className="text-lg md:text-xl text-gray-700 italic max-w-3xl mx-auto leading-relaxed" style={{ fontFamily: 'var(--font-serif)' }}>
+                    <p className="text-sm md:text-lg text-gray-700 italic max-w-3xl mx-auto leading-relaxed" style={{ fontFamily: 'var(--font-body)' }}>
                         Ordinary days that became unforgettable. Trips, festivals, shopping, and simple everyday moments.
                     </p>
                 </motion.div>
@@ -250,9 +250,9 @@ const MemoriesSection = ({ onBack, onContinue }) => {
                                                     currentSrcIndex: ((prev.currentSrcIndex || 0) - 1 + prev.src.length) % prev.src.length
                                                 }));
                                             }}
-                                            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full backdrop-blur-sm transition-all"
+                                            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-transparent text-white p-3 rounded-full transition-all"
                                         >
-                                            <ArrowLeft className="w-6 h-6" />
+                                            <ArrowLeft className="w-8 h-8 drop-shadow-lg" />
                                         </button>
                                         <button
                                             onClick={(e) => {
@@ -262,9 +262,9 @@ const MemoriesSection = ({ onBack, onContinue }) => {
                                                     currentSrcIndex: ((prev.currentSrcIndex || 0) + 1) % prev.src.length
                                                 }));
                                             }}
-                                            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full backdrop-blur-sm transition-all"
+                                            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-transparent text-white p-3 rounded-full transition-all"
                                         >
-                                            <ArrowLeft className="w-6 h-6 rotate-180" />
+                                            <ArrowLeft className="w-8 h-8 rotate-180 drop-shadow-lg" />
                                         </button>
 
                                         <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">

@@ -3,6 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, BrainCircuit, CheckCircle2, ArrowRight, Calendar, Star, Sparkles, HandHeart } from 'lucide-react';
 import FloatingHearts from '../FloatingHearts/FloatingHearts';
 import confetti from 'canvas-confetti';
+import gif3 from '../../assets/gif3.gif';
+import gif27 from '../../assets/gif27.gif';
+import gif32 from '../../assets/gif32.webp';
+import gif31 from '../../assets/gif31.webp';
+import gif37 from '../../assets/gif37.webp';
+import gif28 from '../../assets/gif28.webp';
+import handImg from '../../assets/hand.jpeg';
 
 const questions = [
     {
@@ -10,35 +17,40 @@ const questions = [
         question: "Na Eppo unna Love panren nu feel pannen?💕",
         type: "date",
         correctAnswer: "2025-12-21",
-        hint: "Think!"
+        hint: "Think!",
+        img: gif27
     },
     {
         id: 2,
         question: "Eppo unga veetla madila night time spend pannom ?🌃",
         type: "date",
         correctAnswer: "2025-04-15",
-        hint: "Think!"
+        hint: "Think!",
+        img: gif32
     },
     {
         id: 3,
-        question: "Eppo unna paaka monday market varaikum vanthen? 💖",
+        question: "Eppo unna paaka monday market varaikum unna paka vanthen? 💖",
         type: "date",
         correctAnswer: "2025-08-04",
-        hint: "Think!"
+        hint: "Think!",
+        img: gif37
     },
     {
         id: 4,
         question: "Who is my Best Friend? ",
         type: "text",
         correctAnswer: "Arun",
-        hint: "Think!"
+        hint: "Think!",
+        img: gif31
     },
     {
         id: 5,
-        question: "Na unna vittu poiruven nu ninaikuriya? ",
+        question: "Na unna vittu poganum nu ninaipena? ",
         type: "text",
         correctAnswer: "No",
-        hint: "Think!"
+        hint: "Think!",
+        img: gif28
     }
 ];
 
@@ -160,17 +172,17 @@ const Quiz = ({ onBack }) => {
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="max-w-md w-full bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-2xl border border-pink-100 text-center relative z-10 pt-3"
+                        className="max-w-[340px] md:max-w-md w-full bg-white/80 backdrop-blur-md p-6 md:p-8 rounded-3xl shadow-2xl border border-pink-100 text-center relative z-10 pt-3"
                     >
                         <div className="mb-6 flex justify-center">
                             <div className="p-4 bg-pink-100 rounded-full">
                                 <BrainCircuit className="w-12 h-12 text-pink-500" />
                             </div>
                         </div>
-                        <h1 className="text-3xl font-bold text-gray-800 mb-4 pt-3" style={{ fontFamily: 'var(--font-heading)' }}>
+                        <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4 pt-3" style={{ fontFamily: 'var(--font-heading)' }}>
                             Quiz for You 💝
                         </h1>
-                        <p className="text-gray-600 mb-8 leading-relaxed" style={{ fontFamily: 'var(--font-serif)' }}>
+                        <p className="text-gray-600 mb-8 leading-relaxed" style={{ fontFamily: 'var(--font-body)' }}>
                             Answer these questions correctly to reveal a special surprise I've prepared for you!
                         </p>
                         <button
@@ -189,7 +201,7 @@ const Quiz = ({ onBack }) => {
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="max-w-md w-full bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-2xl border border-pink-100 relative z-10"
+                        className="max-w-[340px] md:max-w-md w-full bg-white/80 backdrop-blur-md p-6 md:p-8 rounded-3xl shadow-2xl border border-pink-100 relative z-10"
                     >
                         {/* Progress Bar */}
                         <div className="mb-8 p-1">
@@ -208,14 +220,14 @@ const Quiz = ({ onBack }) => {
                         <div className="flex justify-center">
                             <img
                                 key={step}
-                                src="/src/assets/gif3.gif"
+                                src={questions[step - 1].img || gif3}
                                 alt="Cute animation"
-                                className="w-32 h-32 object-contain"
+                                className="w-24 h-24 md:w-32 md:h-32 object-contain"
                             />
                         </div>
-                        <h2 className="text-2xl font-bold text-gray-800 ps-3" style={{ fontFamily: 'var(--font-heading)' }}>
+                        <h6 className="text-xs font-semibold text-gray-800 pt-2 px-4" style={{ fontFamily: 'var(--font-body)' }}>
                             {questions[step - 1].question}
-                        </h2>
+                        </h6>
 
                         <div>
                             <div>
@@ -249,7 +261,7 @@ const Quiz = ({ onBack }) => {
                                     animate={{ opacity: 1, y: 0 }}
                                     className=" text-center pb-2"
                                 >
-                                    <div className={`flex items-center justify-center font-bold ${isCorrect ? 'text-green-500' : 'text-red-500'}`}>
+                                    <div className={`flex items-center justify-center text-xs ${isCorrect ? 'text-green-500' : 'text-red-500'}`}>
                                         <span>{isCorrect ? `Correct! Next in ${step === 4 ? '3s' : '1s'}...` : `Oops! Wrong answer. Next in ${step === 4 ? '3s' : '1s'}...`}</span>
                                     </div>
                                 </motion.div>
@@ -276,7 +288,7 @@ const Quiz = ({ onBack }) => {
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="max-w-md w-full bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-2xl border border-pink-100 text-center relative z-10"
+                        className="max-w-[340px] md:max-w-md w-full bg-white/80 backdrop-blur-md p-6 md:p-8 rounded-3xl shadow-2xl border border-pink-100 text-center relative z-10"
                     >
                         <div className="relative w-40 h-40 mx-auto mb-8 mt-4">
                             <svg className="w-full h-full transform -rotate-90 ">
@@ -308,10 +320,10 @@ const Quiz = ({ onBack }) => {
                             </div>
                         </div>
 
-                        <h1 className="text-3xl font-bold text-gray-800 mb-2 mt-3" style={{ fontFamily: 'var(--font-heading)' }}>
+                        <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2 mt-3" style={{ fontFamily: 'var(--font-body)' }}>
                             {correctCount >= 4 ? "Strong Love! ❤️" : "Keep Trying! 💕"}
                         </h1>
-                        <p className="text-gray-600 mb-8 italic" style={{ fontFamily: 'var(--font-serif)' }}>
+                        <p className="text-gray-600 mb-8 italic" style={{ fontFamily: 'var(--font-body)' }}>
                             {correctCount >= 4
                                 ? "You know us so well... something special is coming!"
                                 : "You almost got it! Try again to see the surprise."}
@@ -325,7 +337,7 @@ const Quiz = ({ onBack }) => {
                                 }}
                                 className="w-full bg-gradient-to-r from-red-500 to-pink-500 text-white font-bold py-4 rounded-2xl shadow-lg"
                             >
-                                Try Againnnnnn
+                                Try Again
                             </button>
                         )}
 
@@ -355,15 +367,15 @@ const Quiz = ({ onBack }) => {
                             stiffness: 260,
                             damping: 20
                         }}
-                        className="max-w-md w-full bg-white/80 backdrop-blur-md p-6 rounded-3xl shadow-2xl border border-pink-100 text-center relative z-10 flex flex-col items-center justify-center max-h-[90vh] overflow-hidden"
+                        className="max-w-[340px] md:max-w-md w-full bg-white/80 backdrop-blur-md p-5 md:p-6 rounded-3xl shadow-2xl border border-pink-100 text-center relative z-10 flex flex-col items-center justify-center max-h-[90vh] overflow-hidden "
                     >
                         <motion.div
                             initial={{ opacity: 0, scale: 0.5 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="overflow-hidden rounded-2xl shadow-lg border-4 border-white w-48 h-48 mx-auto mt-3"
+                            className="overflow-hidden rounded-2xl shadow-lg border-4 border-white w-40 h-40 md:w-56 md:h-56 mx-auto mt-5 flex-shrink-0 " 
                         >
                             <img
-                                src="/src/assets/hand.jpeg"
+                                src={handImg}
                                 alt="Our Promise"
                                 className="w-full h-full object-cover"
                             />
@@ -373,10 +385,10 @@ const Quiz = ({ onBack }) => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                         >
-                            <h2 className="text-2xl font-bold text-gray-800 pt-3" style={{ fontFamily: 'var(--font-heading)' }}>
+                            <h2 className="text-2xl font-bold text-gray-800 pt-3" style={{ fontFamily: 'var(--font-body)' }}>
                                 My Promise to You
                             </h2>
-                            <p className="text-md text-pink-600 font-serif  px-2">
+                            <p className="text-md text-pink-600 " style={{ fontFamily: 'var(--font-body)' }}>
                                 Ne enmela kova pattalum,sanda potalum neeyae po nu sonnalum,Enna nadanthalum unna vittu poga maaten un kuda tha eppavum irupen, Promise!!!
                             </p>
                             <p className="text-xl text-pink-600 font-bold  ">
@@ -386,10 +398,10 @@ const Quiz = ({ onBack }) => {
                                 onClick={onBack}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="p-2 bg-gray-800 text-white rounded-full font-bold shadow-lg text-sm transition-all mb-4"
+                                className="p-2 bg-gray-800 text-white rounded-full font-bold shadow-lg text-sm transition-all mb-5"
                                 style={{ borderRadius: '10px' }}
                             >
-                                Back to Our Story
+                                Back <ArrowLeft />
                             </motion.button>
                         </motion.div>
                     </motion.div>
