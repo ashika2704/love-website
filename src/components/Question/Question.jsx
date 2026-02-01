@@ -7,7 +7,7 @@ import gif7 from '../../assets/gif7.gif';
 import gif1 from '../../assets/gif1.gif';
 import gif6 from '../../assets/gif6.gif';
 
-const Question = ({ onNext }) => {
+const Question = ({ onNext, audioController }) => {
     const [accepted, setAccepted] = useState(false);
     const [noMessage, setNoMessage] = useState("");
     const timerRef = React.useRef(null); // Ref to store timeout ID
@@ -53,6 +53,12 @@ const Question = ({ onNext }) => {
 
     const handleYes = () => {
         setAccepted(true);
+
+        // Play celebration audio using shared controller
+        if (audioController) {
+            audioController.currentTime = 0;
+            audioController.play().catch(error => console.error("Audio playback failed:", error));
+        }
 
         // Confetti
         const duration = 15 * 1000;
@@ -154,7 +160,7 @@ const Question = ({ onNext }) => {
                         I love you!!!
                     </p>
 
-                    <motion.button
+                    {/* <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={onNext}
@@ -163,7 +169,7 @@ const Question = ({ onNext }) => {
                     >
                         Next
                         <ArrowRight className="w-5 h-5" />
-                    </motion.button>
+                    </motion.button> */}
                 </motion.div>
             )}
         </section>

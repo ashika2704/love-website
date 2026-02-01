@@ -4,7 +4,7 @@ import { Heart, ArrowRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import gif27 from '../../assets/gif27.gif';
 
-const ProposalTimer = ({ onNext }) => {
+const ProposalTimer = ({ onNext, audioController }) => {
     const [timeLeft, setTimeLeft] = useState({
         days: 0,
         hours: 0,
@@ -18,7 +18,7 @@ const ProposalTimer = ({ onNext }) => {
     useEffect(() => {
         // Generate initial balloons
         const colors = ['#ff4d6d', '#ff8fa3', '#ffb3c1', '#ffffff', '#ffccd5'];
-        const newBalloons = Array.from({ length: 1 }).map((_, i) => ({
+        const newBalloons = Array.from({ length: 3 }).map((_, i) => ({
             id: i,
             color: colors[Math.floor(Math.random() * colors.length)],
             x: Math.random() * 50,
@@ -76,6 +76,27 @@ const ProposalTimer = ({ onNext }) => {
 
         return () => clearInterval(timer);
     }, [proposalDate]);
+
+    useEffect(() => {
+        if (audioController) {
+            const handleEnded = () => {
+                onNext();
+            };
+            audioController.addEventListener('ended', handleEnded);
+
+            // Check if audio has already ended or not playing
+            if (audioController.ended || audioController.paused) {
+                // Option: Trigger next immediately if not playing, or maybe play if paused?
+                // But user specifically said "when audio stop it move to next page"
+                // If it's paused or ended when we arrive (e.g. very short clip), we should probably move on.
+                // However, safe to just listen for 'ended' if it's currently playing.
+            }
+
+            return () => {
+                audioController.removeEventListener('ended', handleEnded);
+            };
+        }
+    }, [audioController, onNext]);
 
     const TimeUnit = ({ label, value }) => (
         <div className="flex flex-col items-center mx-2 md:mx-4">
@@ -216,20 +237,7 @@ const ProposalTimer = ({ onNext }) => {
                     Always and forever together ❤️
                 </motion.p>
 
-                <motion.button
-                    variants={{
-                        hidden: { opacity: 0, y: 20 },
-                        visible: { opacity: 1, y: 0 }
-                    }}
-                    whileHover={{ scale: 1.05, x: 5 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={onNext}
-                    className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-red-500 text-white  rounded-full font-bold shadow-xl hover:shadow-2xl transition-all p-3"
-                    style={{ borderRadius: '15px' }}
-                >
-                    Explore
-                    <ArrowRight className="w-5 h-5" />
-                </motion.button>
+                {/* Explore button removed for auto-navigation on audio end */}
             </motion.div>
         </div >
     );

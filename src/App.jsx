@@ -14,21 +14,29 @@ import ChoiceSelection from './components/ChoiceSelection/ChoiceSelection';
 import Redirecting from './components/Redirecting/Redirecting';
 import Quiz from './components/Quiz/Quiz';
 import ProposalTimer from './components/ProposalTimer/ProposalTimer';
+import audioFile from './assets/audio.mpeg';
 
 function App() {
   const [page, setPage] = useState(0); // 0: Landing, 1: Proposal, 1.1: Timer, 1.5: Choice Hub, 1.6: Redirecting, 2: Story, 3: Every Part, 4+: Sections, 10: Main Content
   const [selectedSection, setSelectedSection] = useState(null);
+  const audioRef = React.useRef(new Audio(audioFile));
 
   if (page === 0) {
     return <LandingPage onEnter={() => setPage(1)} />;
   }
 
   if (page === 1) {
-    return <Question onNext={() => setPage(1.1)} />;
+    return <Question
+      onNext={() => setPage(1.1)}
+      audioController={audioRef.current}
+    />;
   }
 
   if (page === 1.1) {
-    return <ProposalTimer onNext={() => setPage(1.5)} />;
+    return <ProposalTimer
+      onNext={() => setPage(1.5)}
+      audioController={audioRef.current}
+    />;
   }
 
   if (page === 1.5) {
