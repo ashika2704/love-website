@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 // Using placeholders for now, user can swap them
 import gif3 from '../../assets/gif3.gif';
+import audio3 from '../../assets/audio3.mpeg';
 import gif4 from '../../assets/gif4.gif';
 import gif5 from '../../assets/gif5.gif';
 import gif8 from '../../assets/gif8.webp';
@@ -22,7 +23,7 @@ import gif25 from '../../assets/gif25.webp';
 import gif26 from '../../assets/gif26.webp';
 import gif36 from '../../assets/gif36.webp';
 const storyData = [
-    {   
+    {
         id: 1,
         title: "The Beginning of Him",
         date: "27 February 2002",
@@ -214,6 +215,17 @@ const LoveStory = ({ onComplete }) => {
             setCurrentIndex(prev => prev - 1);
         }
     };
+
+    React.useEffect(() => {
+        const audio = new Audio(audio3);
+        audio.loop = true;
+        audio.play().catch(e => console.log("Audio playback failed", e));
+
+        return () => {
+            audio.pause();
+            audio.currentTime = 0;
+        };
+    }, []);
 
     const currentStory = storyData[currentIndex];
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, BrainCircuit, CheckCircle2, ArrowRight, Calendar, Star, Sparkles, HandHeart } from 'lucide-react';
+import { Heart, BrainCircuit, CheckCircle2, ArrowRight, Calendar, Star, Sparkles, HandHeart, ArrowLeft } from 'lucide-react';
 import FloatingHearts from '../FloatingHearts/FloatingHearts';
 import confetti from 'canvas-confetti';
 import gif3 from '../../assets/gif3.gif';
@@ -10,13 +10,16 @@ import gif31 from '../../assets/gif31.webp';
 import gif37 from '../../assets/gif37.webp';
 import gif28 from '../../assets/gif28.webp';
 import handImg from '../../assets/hand.jpeg';
+import audio1 from '../../assets/audio1.mpeg';
+import audio2 from '../../assets/audio2.mpeg';
+import audio4 from '../../assets/audio4.mpeg';
 
 const questions = [
     {
         id: 1,
         question: "Na Eppo unna Love panren nu feel pannen?💕",
         type: "date",
-        correctAnswer: "2025-12-21",
+        correctAnswer: "2024-12-21",
         hint: "Think!",
         img: gif27
     },
@@ -60,6 +63,26 @@ const Quiz = ({ onBack }) => {
     const [isCorrect, setIsCorrect] = useState(null);
     const [showSuccessMsg, setShowSuccessMsg] = useState(false);
     const [correctCount, setCorrectCount] = useState(0);
+    const [quizBgAudio] = useState(new Audio(audio4));
+
+    // Cleanup quiz audio on unmount
+    useEffect(() => {
+        return () => {
+            quizBgAudio.pause();
+            quizBgAudio.currentTime = 0;
+        };
+    }, []);
+
+    // Control quiz audio playback (Steps 1-5)
+    useEffect(() => {
+        if (step >= 1 && step <= 5) {
+            quizBgAudio.loop = true;
+            quizBgAudio.play().catch(e => console.error("Quiz bg audio failed:", e));
+        } else {
+            quizBgAudio.pause();
+            quizBgAudio.currentTime = 0;
+        }
+    }, [step, quizBgAudio]);
 
     useEffect(() => {
         if (isCorrect !== null) {
@@ -71,14 +94,19 @@ const Quiz = ({ onBack }) => {
         }
     }, [isCorrect, step]);
 
+    // Restore auto-redirect from Success Screen (Step 6) to Reveal (Step 7)
     useEffect(() => {
         if (step === 6 && correctCount >= 4) {
+            // Short 3-second delay so user can see "Strong Love!" message
             const timer = setTimeout(() => {
                 setStep(7);
-            }, 5000);
+            }, 3000);
             return () => clearTimeout(timer);
         }
     }, [step, correctCount]);
+
+    // Auto-redirect effect removed to prevent flashing/blank screen issues.
+    // Navigation to Step 7 is now handled directly in nextStep for high scores.
 
     useEffect(() => {
         if (step === 7) {
@@ -111,7 +139,27 @@ const Quiz = ({ onBack }) => {
                 });
             }, 250);
 
-            return () => clearInterval(interval);
+
+            // Audio Sequence Logic
+            const sound2 = new Audio(audio2);
+            const sound1 = new Audio(audio1);
+            sound1.loop = false;
+
+            // Play audio2 first
+            sound2.play().catch(e => console.error("Audio2 playback failed:", e));
+
+            // When audio2 ends, play audio1 loop
+            sound2.addEventListener('ended', () => {
+                sound1.play().catch(e => console.error("Audio1 playback failed:", e));
+            });
+
+            return () => {
+                clearInterval(interval);
+                sound2.pause();
+                sound2.currentTime = 0;
+                sound1.pause();
+                sound1.currentTime = 0;
+            };
         }
     }, [step]);
 
@@ -355,14 +403,7 @@ const Quiz = ({ onBack }) => {
                             </div>
                         )}
 
-                        {correctCount >= 4 && (
-                            <button
-                                onClick={() => setStep(7)}
-                                className="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold py-4 rounded-2xl shadow-lg mt-4 animate-pulse hover:animate-none transition-all"
-                            >
-                                See Surprise ✨
-                            </button>
-                        )}
+                        {/* Manual button removed for auto-navigation */}
                     </motion.div>
                 )}
 
@@ -407,10 +448,10 @@ const Quiz = ({ onBack }) => {
                                 onClick={onBack}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="p-2 bg-gray-800 text-white rounded-full font-bold shadow-lg text-sm transition-all mb-5"
+                                className="px-6 py-2 bg-gray-800 text-white rounded-full font-bold shadow-lg text-sm transition-all mb-5 flex items-center justify-center gap-2 mx-auto p-2"
                                 style={{ borderRadius: '10px' }}
                             >
-                                Back <ArrowLeft />
+                                <ArrowLeft size={18} /> Back
                             </motion.button>
                         </motion.div>
                     </motion.div>

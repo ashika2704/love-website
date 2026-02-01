@@ -13,17 +13,18 @@ const ChoiceSelection = ({ onSelect }) => {
             color: '#ff4d6d'
         },
         {
-            id: 'quiz',
-            title: 'Love Quiz',
-            gif: gif35,
-            color: '#d90429'
-        },
-        {
             id: 'everypart',
             title: 'Every Part of Us',
             gif: gif34,
             color: '#800f2f'
+        },
+        {
+            id: 'quiz',
+            title: 'Love Quiz',
+            gif: gif35,
+            color: '#d90429'
         }
+        
     ];
 
     return (
